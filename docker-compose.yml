@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  bookie_evaluator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data
+      - .:/app
+    ports:
+      - "8888:8888"  # Jupyter notebook port
+    environment:
+      - ODDS_API_KEY=${ODDS_API_KEY:-your_odds_api_key}
+      - FOOTBALL_DATA_API_KEY=${FOOTBALL_DATA_API_KEY:-your_football_data_api_key}
+    stdin_open: true  # docker run -i
+    tty: true         # docker run -t
+
+  # Uncomment below to add a database service if needed in the future
+  # db:
+  #   image: postgres:13
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data/
+  #   environment:
+  #     - POSTGRES_USER=bookie
+  #     - POSTGRES_PASSWORD=evaluator
+  #     - POSTGRES_DB=bookie_evaluator
+  #   ports:
+  #     - "5432:5432"
+
+# Uncomment if using postgres service
+# volumes:
+#   postgres_data:
