@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.13-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -50,9 +50,7 @@ elif [ "$1" = "bash" ]; then\n\
 else\n\
   exec poetry run python main.py "$@"\n\
 fi' > /app/entrypoint.sh \
-&& chmod +x /app/entrypoint.sh
+  && chmod +x /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
-
-# Default command (if no arguments provided)
 CMD ["--help"]
